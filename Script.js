@@ -128,6 +128,7 @@ function iniciarJogo() {
     
     // Mostra escudo e pontos
     document.getElementById('escudo').style.display = 'block';
+    document.getElementById('coracao').style.display = 'none';
     atualizarPontuacao();
     
     // Mostra a primeira pergunta
@@ -162,6 +163,7 @@ function renderizarPergunta() {
     area.innerHTML = "";
     fb.textContent = "";
     fb.className = "";
+    document.getElementById('areaJogo').classList.remove('em-feedback');
     
     // Se for pergunta de PALAVRA
     if (atual.tipo === "palavra") {
@@ -315,25 +317,47 @@ function soltar(e) {
             }, 1000);
         }
     } 
-    // Se errou
-    else {
-        fb.textContent = "ERRADO! -5 PONTOS";
-        fb.className = "errado";
-        pontuacao = Math.max(0, pontuacao - 5);  // Perde pontos (não fica negativo)
-        atualizarPontuacao();
+   // Se errou
+else {
+    fb.textContent = "ERRADO! -5 PONTOS";
+    fb.className = "errado";
+    pontuacao = Math.max(0, pontuacao - 5);
+    atualizarPontuacao();
+
+    // Desativa interação com os blocos
+    document.getElementById('areaJogo').classList.add('em-feedback');
+
+    if (temEscudo) {
+        temEscudo = false;
+        const escudo = document.getElementById("escudo");
+        const coracao = document.getElementById("coracao");
         
-        // Se ainda tem escudo, continua
-        if (temEscudo) {
-            temEscudo = false;
-            document.getElementById("escudo").style.display = "none";
-            setTimeout(renderizarPergunta, 1000);
-        } 
-        // Senão, game over
-        else {
+        // Animação do escudo quebrando
+        escudo.style.animation = "escudoQuebra 0.5s forwards";
+        
+        setTimeout(() => {
+            escudo.style.display = "none";
+            // Mostra o coração com animação
+            coracao.style.display = "block";
+            coracao.style.animation = "pulsarCoracao 1.5s infinite";
+            
+            // Prepara próxima pergunta após 1 segundo
+            setTimeout(() => {
+                indicePergunta++;
+                renderizarPergunta();
+            }, 1000);
+        }, 500);
+    } 
+    else {
+        const coracao = document.getElementById("coracao");
+        coracao.style.animation = "coracaoQuebra 1s forwards";
+        
+        setTimeout(() => {
             localStorage.setItem('pontuacaoFinal', pontuacao);
-            setTimeout(() => window.location.href = "derrota.html", 1000);
-        }
+            window.location.href = "derrota.html";
+        }, 1000);
     }
+}
 }
 
 // QUANDO A PÁGINA CARREGA, INICIA O JOGO
