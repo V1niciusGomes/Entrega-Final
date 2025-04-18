@@ -1,0 +1,355 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+/* Reset geral */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Press Start 2P', cursive;
+}
+
+/* Corpo com textura de grama do Minecraft */
+body {
+  background-image: url(imagem/animated-green-pixel-grass-background-the-concept-of-games-background-squares-pattern-background-minecraft-concept-illustration-light-green-abstract-textured-polygonal-background-video.jpg); /* Textura de grama Minecraft */
+  background-repeat: repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: #fff;
+  user-select: none;
+  image-rendering: pixelated;
+}
+
+/* Container do jogo estilizado como bloco de madeira */
+#areaJogo {
+  background-color: rgba(78, 52, 46, 0.95); /* Marrom escuro semi-transparente */
+  border: 4px solid #2e160e;
+  box-shadow: 
+    0 0 0 8px #2e160e,
+    0 0 20px rgba(0, 0, 0, 0.6);
+  width: 640px;
+  max-width: 90%;
+  padding: 24px;
+  text-align: center;
+  position: relative;
+  border-radius: 4px;
+}
+
+/* Títulos com sombra pixelada */
+h1 {
+  color: #FFD700; /* Dourado */
+  text-shadow: 3px 3px #8B8000;
+  margin-bottom: 16px;
+  font-size: 2.5rem;
+  letter-spacing: 2px;
+}
+
+h2 {
+  color: #55FF55; /* Verde claro */
+  text-shadow: 2px 2px #008000;
+  margin-bottom: 24px;
+  font-size: 1.2rem;
+}
+
+
+/* Área de blocos e slots lado a lado */
+#blocosDeLetras, #areaDePalavras {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 12px 0;
+  padding: 8px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+/* Blocos arrastáveis (sílabas/números) - Estilo blocos Minecraft */
+.bloco {
+  width: 64px;
+  height: 64px;
+  background-color: #8dbd26; /* Verde Minecraft */
+  border: 3px solid #527d11;
+  box-shadow: 
+    inset -4px -4px #6d8c1f, 
+    inset 4px 4px #a4db4c;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  font-size: 14px;
+  cursor: grab;
+  transition: all 0.2s ease;
+  user-select: none;
+  image-rendering: pixelated;
+  color: #FFF;
+  text-shadow: 1px 1px #000;
+}
+
+.bloco:hover {
+  background-color: #9ccc3d;
+  transform: translateY(-3px);
+}
+
+.bloco:active, .bloco.dragging {
+  transform: translateY(0) scale(0.95);
+  box-shadow: 
+    inset 0 0 10px rgba(0,0,0,0.5),
+    0 0 15px rgb(43, 46, 43);
+    border: 3px solid #527d11;
+}
+
+/* Slots vazios e preenchidos - Estilo bancada de trabalho */
+.slot {
+  width: 64px;
+  height: 64px;
+  border: 3px dashed #6e6e6e;
+  background-color: #bdbdbd;
+  box-shadow: 
+    inset -2px -2px #a3a3a3,
+    inset 2px 2px #d3d3d3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  color: #333;
+}
+
+.slot.preenchida {
+  border-style: solid;
+  background-color: #dedede;
+  box-shadow: 
+    inset -2px -2px #a3a3a3,
+    inset 2px 2px #d3d3d3;
+}
+
+.slot.dragover {
+  background-color: rgba(255, 255, 0, 0.6);
+  border-color: #ffea00;
+  animation: pulse 0.5s infinite alternate;
+}
+
+@keyframes pulse {
+  from { transform: scale(1); }
+  to { transform: scale(1.05); }
+}
+
+/* Texto da pergunta matemática */
+.perguntaMat {
+  font-size: 16px;
+  margin-right: 8px;
+  color: #FFA500; /* Laranja */
+  text-shadow: 1px 1px #8B4500;
+}
+
+/* Feedback de resultado */
+#feedback {
+  margin-top: 16px;
+  font-size: 16px;
+  font-weight: bold;
+  text-shadow: 2px 2px #000;
+  min-height: 24px;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.correto {
+  color: #00ff00;
+  background-color: rgba(0, 255, 0, 0.2);
+  animation: 
+    pisca-verde 1s ease-in-out infinite,
+    grow 0.5s ease;
+}
+
+.errado {
+  color: #ff0000;
+  background-color: rgba(255, 0, 0, 0.2);
+  animation: 
+    pisca-vermelho 1s ease-in-out infinite,
+    shake 0.5s ease;
+}
+
+@keyframes pisca-verde {
+  0%,100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes pisca-vermelho {
+  0%,100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes grow {
+  0% { transform: scale(0.8); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-5px); }
+  40%, 80% { transform: translateX(5px); }
+}
+
+/* Botões Minecraft */
+.btn-minecraft {
+    padding: 10px 40px;
+    font-size: 18px;
+    background-color: #333;
+    color: #fff;
+    text-shadow: 0 2px 0 rgb(0 0 0 / 25%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border: 0;
+    z-index: 1;
+    user-select: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    white-space: unset;
+    padding: .8rem 1.5rem;
+    text-decoration: none;
+    font-weight: 900;
+    transition: all 0.7s cubic-bezier(0,.8,.26,.99);
+  }
+  
+  .btn-minecraft:before {
+    position: absolute;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    content: '';
+    transition: .7s cubic-bezier(0,.8,.26,.99);
+    z-index: -1;
+    background-color: #333!important;
+    box-shadow: 0 -4px rgb(0 0 0 / 50%) inset, 0 4px rgb(255 255 255 / 20%) inset, -4px 0 rgb(255 255 255 / 20%) inset, 4px 0 rgb(0 0 0 / 50%) inset;
+  }
+  
+  .btn-minecraft:after {
+    position: absolute;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    content: '';
+    box-shadow: 0 4px 0 0 rgb(0 0 0 / 15%);
+    transition: .7s cubic-bezier(0,.8,.26,.99);
+  }
+  
+  .btn-minecraft:hover:before {
+    box-shadow: 0 -4px rgb(0 0 0 / 50%) inset, 0 4px rgb(255 255 255 / 20%) inset, -4px 0 rgb(255 255 255 / 20%) inset, 4px 0 rgb(0 0 0 / 50%) inset;
+  }
+  
+  .btn-minecraft:hover:after {
+    box-shadow: 0 4px 0 0 rgb(0 0 0 / 15%);
+  }
+  
+  .btn-minecraft:active {
+    transform: translateY(4px);
+  }
+  
+  .btn-minecraft:active:after {
+    box-shadow: 0 0px 0 0 rgb(0 0 0 / 15%);
+  }
+
+
+#botoesFinais {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* Responsividade */
+@media (max-width: 500px) {
+  #areaJogo { padding: 16px; }
+  .bloco, .slot { width: 48px; height: 48px; font-size: 12px; }
+  #escudo { width: 48px; height: 48px; }
+  h1 { font-size: 1.8rem; }
+  h2 { font-size: 1rem; }
+  .btn-minecraft { padding: 10px 16px; font-size: 12px; }
+}
+/* Estilos para as telas de finalização */
+.tela-final {
+    background-color: rgba(78, 52, 46, 0.95);
+    border: 4px solid #2e160e;
+    box-shadow: 0 0 0 8px #2e160e;
+    width: 640px;
+    max-width: 90%;
+    padding: 24px;
+    text-align: center;
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+}
+
+.tela-final h1 {
+    color: #FFD700;
+    text-shadow: 3px 3px #8B8000;
+    margin-bottom: 20px;
+}
+
+.tela-final p {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+#pontuacao-final {
+    font-size: 24px;
+    font-weight: bold;
+    color: #55FF55;
+    margin: 20px 0;
+}
+
+/* Estilo do escudo - Versão melhorada */
+#escudo {
+    width: 60px;
+    height: 72px;
+    image-rendering: pixelated;
+    transition: transform 0.2s ease;
+    object-fit: contain;
+    position: relative; /* Mudado de absolute para relative */
+}
+
+#escudo:hover, #coracao:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+
+#coracao {
+    width: 50px;
+    height: 62px;
+    image-rendering: pixelated;
+    transition: transform 0.2s ease;
+    object-fit: contain;
+    position: relative; /* Mudado de absolute para relative */
+    margin-right: 10px; /* Adiciona margem à direita */
+}
+
+
+
+#containerEscudo {
+    position: absolute;
+    top: 10px;
+    right: 16px; /* Posição original */
+    width: 120px; /* Aumentei a largura para acomodar ambos */
+    height: 72px;
+    z-index: 10;
+    display: flex;
+    justify-content: flex-end; /* Alinha os itens à direita */
+    align-items: center;
+    gap: 10px; /* Espaço entre escudo e coração */
+}

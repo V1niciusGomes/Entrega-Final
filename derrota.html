@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Derrota - Crafta</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="tela-final">
+        <h1>GAME OVER!</h1>
+        <p id="pontuacao-final">Sua pontuação: 0</p>
+        <button onclick="window.location.href='index.html'" class="btn-minecraft">Tentar Novamente</button>
+    </div>
+    <script>
+        // Recupera a pontuação salva
+        const pontuacao = localStorage.getItem('pontuacaoFinal') || 0;
+        document.getElementById('pontuacao-final').textContent = `Sua pontuação: ${pontuacao}`;
+    </script>
+</body>
+</html>
