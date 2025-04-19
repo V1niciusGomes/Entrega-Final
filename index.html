@@ -4,9 +4,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crafta - Jogo Educativo</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style2.css">
+    <style>
+        /* Estilo da tela de carregamento */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.9); /* Fundo escuro semi-transparente */
+            display: none; /* Inicialmente escondido */
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 9999;
+        }
+
+        .loading-text {
+            color: #fff;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.5rem;
+            text-shadow: 3px 3px #041104;
+            margin-bottom: 20px;
+        }
+
+        /* Animação de barra de carregamento estilo Minecraft */
+        .loading-bar {
+            width: 200px;
+            height: 20px;
+            background-color: #333;
+            border: 2px solid #000;
+            box-shadow: 0 -2px rgb(0 0 0 / 50%) inset, 0 2px rgb(255 255 255 / 20%) inset;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .loading-bar-fill {
+            width: 0%;
+            height: 100%;
+            background-color: #55ff55; /* Verde brilhante estilo Minecraft */
+            animation: load 0.7s linear forwards; /* Animação de 2 segundos */
+        }
+
+        @keyframes load {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <h1>Quick Craft!</h1>
+        <br><br>
+        <a href="#" class="btn-minecraft" onclick="showLoadingScreen()"> <pre>     COMEÇAR!     </pre></a>
+        <br><br><br>
+    </div>
 
+    <!-- Tela de carregamento -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-text">Carregando...</div>
+        <div class="loading-bar">
+            <div class="loading-bar-fill"></div>
+        </div>
+    </div>
+
+    <script>
+        function showLoadingScreen() {
+            // Mostrar a tela de carregamento
+            const loadingScreen = document.getElementById('loadingScreen');
+            loadingScreen.style.display = 'flex';
+
+            // Simular o carregamento e redirecionar após 2 segundos
+            setTimeout(() => {
+                window.location.href = 'inicio.html';
+            }, 700); // 
+        }
+    </script>
 </body>
 </html>
